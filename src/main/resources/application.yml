@@ -34,9 +34,10 @@ spring:
 
 #mybatis配置
 mybatis:
-  mapper-locations: classpath:mapping/*Mapper.xml
+  mapper-locations: classpath:mapping/*.xml
   type-aliases-package: com.example.demo.mapper
+  configLocation: classpath:mybatis-config.xml
 
 #log4j配置
 logging:
-  file: e:/logs/daily.log
+  config: classpath:log4j2-spring.xml
