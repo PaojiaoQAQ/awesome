@@ -15,7 +15,7 @@ public class ReadFileUtils {
             byte[] resultArray = new byte[fis.available()];
             int index = 0;
             int temp = 0;
-            while((temp = fis.read()) != -1){
+            while((temp = bs.read()) != -1){
                 resultArray[index] = (byte)temp;
                 index ++;
             }

@@ -2,7 +2,11 @@ package com.example.demo;
 
 import com.example.demo.utils.ReadFileUtils;
 import com.example.demo.utils.ResourceUtil;
+import com.example.demo.utils.ThreadPoolUtils;
 import org.junit.Test;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class dailyTest {
     @Test
@@ -23,13 +27,27 @@ public class dailyTest {
     }
     @Test
     public void readfileTest(){
-        String path = "e:/jsonFile.json";
+        String path = "f:/jsonFile.json";
         String s = ReadFileUtils.readFileStr(path);
         System.out.println(s);
     }
     @Test
     public void resourceTest(){
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
+        System.out.println(sdf.format(new Date()));
         String url = ResourceUtil.getAppconfigByKey("language");
         System.out.println(url);
+    }
+    @Test
+    public void threadPoolTest(){
+        ThreadPoolUtils thread  = ThreadPoolUtils.getInstance();
+        for(int i = 0; i< 200; i++){
+            thread.excute(new Worker());
+        }
+    }
+}
+ class Worker implements Runnable{
+    public void run() {
+        System.out.println(Thread.currentThread().getName() + " is running");
     }
 }
