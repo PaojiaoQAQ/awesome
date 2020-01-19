@@ -16,8 +16,6 @@ import org.springframework.web.bind.annotation.RestController;
 public class ProduceController {
     @Autowired
     private UserService userService;
-    @Autowired
-    private RedisTemplate<String, Object> redisTemplate;
 
     @GetMapping(value = "/hello/{name}")
     public String helloTest(@PathVariable("name") String name){
@@ -36,14 +34,15 @@ public class ProduceController {
         user.setName("redis测试");
         user.setPassword("3333");
         user.setUserid("111111");
-        redisTemplate.opsForValue().set("redisUser",user);
+//        redisTemplate.opsForValue().set("redisUser",user);
         return "success";
 
     }
 
     @GetMapping(value = "getRedisTest")
     public Object getPojo(){
-        return redisTemplate.opsForValue().get("redisUser");
+        return null;
+//        return redisTemplate.opsForValue().get("redisUser");
     }
     @RequestMapping(value = "")
     public String helloDocker(){
