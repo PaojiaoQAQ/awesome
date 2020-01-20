@@ -34,7 +34,7 @@ public class HttpClientUtils {
      * @param params
      * @author Mundo
      */
-    public String doGet(String url, Map<String,String> params){
+    public static String doGet(String url, Map<String,String> params){
         String result = null;
         HttpClient httpClient = HttpClientBuilder.create().build();
         HttpGet httpGet = null;

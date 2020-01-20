@@ -9,6 +9,7 @@ import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
 import redis.clients.jedis.SortingParams;
 
+import javax.annotation.Resource;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.ObjectInputStream;
@@ -20,9 +21,9 @@ import java.util.Set;
 
 @Component
 public class RedisUtils {
-    Logger log = LoggerFactory.getLogger(RedisUtils.class);
-    @Autowired
-    private JedisPool jedisPool;
+    private static Logger log = LoggerFactory.getLogger(RedisUtils.class);
+    @Resource(name = "redisPoolFactory")
+    private   JedisPool jedisPool;
 
     /**
      * 通过key获取储存在redis中的value
@@ -31,7 +32,7 @@ public class RedisUtils {
      * @param indexdb 选择redis库 0-15
      * @return 成功返回value 失败返回null
      */
-    public String get(String key,int indexdb) {
+    public  String get(String key,int indexdb) {
         Jedis jedis = null;
         String value = null;
         try {
@@ -55,7 +56,7 @@ public class RedisUtils {
      * @param indexdb 选择redis库 0-15
      * @return 成功返回value 失败返回null
      */
-    public byte[] get(byte[] key,int indexdb) {
+    public  byte[] get(byte[] key,int indexdb) {
         Jedis jedis = null;
         byte[] value = null;
         try {
@@ -79,7 +80,7 @@ public class RedisUtils {
      * @param indexdb 选择redis库 0-15
      * @return 成功 返回OK 失败返回 0
      */
-    public String set(String key, String value,int indexdb) {
+    public  String set(String key, String value,int indexdb) {
         Jedis jedis = null;
         try {
             jedis = jedisPool.getResource();
@@ -102,7 +103,7 @@ public class RedisUtils {
      * @param indexdb 选择redis库 0-15
      * @return 成功 返回OK 失败返回 0
      */
-    public String set(byte[] key, byte[] value,int indexdb) {
+    public  String set(byte[] key, byte[] value,int indexdb) {
         Jedis jedis = null;
         try {
             jedis = jedisPool.getResource();
@@ -122,7 +123,7 @@ public class RedisUtils {
      * @param keys 一个key 也可以使 string 数组
      * @return 返回删除成功的个数
      */
-    public Long del(String... keys) {
+    public  Long del(String... keys) {
         Jedis jedis = null;
         try {
             jedis = jedisPool.getResource();
@@ -142,7 +143,7 @@ public class RedisUtils {
      * @param keys 一个key 也可以使 string 数组
      * @return 返回删除成功的个数
      */
-    public Long del(int indexdb,String... keys) {
+    public  Long del(int indexdb,String... keys) {
         Jedis jedis = null;
         try {
             jedis = jedisPool.getResource();
@@ -163,7 +164,7 @@ public class RedisUtils {
      * @param keys 一个key 也可以使 string 数组
      * @return 返回删除成功的个数
      */
-    public Long del(int indexdb,byte[]... keys) {
+    public  Long del(int indexdb,byte[]... keys) {
         Jedis jedis = null;
         try {
             jedis = jedisPool.getResource();
@@ -184,7 +185,7 @@ public class RedisUtils {
      * @param str
      * @return 成功返回 添加后value的长度 失败 返回 添加的 value 的长度 异常返回0L
      */
-    public Long append(String key, String str) {
+    public  Long append(String key, String str) {
         Jedis jedis = null;
         Long res = null;
         try {
@@ -205,7 +206,7 @@ public class RedisUtils {
      * @param key
      * @return true OR false
      */
-    public Boolean exists(String key) {
+    public  Boolean exists(String key) {
         Jedis jedis = null;
         try {
             jedis = jedisPool.getResource();
@@ -223,7 +224,7 @@ public class RedisUtils {
      * 清空当前数据库中的所有 key,此命令从不失败。
      * @return 总是返回 OK
      */
-    public String flushDB() {
+    public  String flushDB() {
         Jedis jedis = null;
         try {
             jedis = jedisPool.getResource();
@@ -243,7 +244,7 @@ public class RedisUtils {
      *            过期时间，单位：秒
      * @return 成功返回1 如果存在 和 发生异常 返回 0
      */
-    public Long expire(String key, int value, int indexdb) {
+    public  Long expire(String key, int value, int indexdb) {
         Jedis jedis = null;
         try {
             jedis = jedisPool.getResource();
@@ -263,7 +264,7 @@ public class RedisUtils {
      * @return 当 key 不存在时，返回 -2 。当 key 存在但没有设置剩余生存时间时，返回 -1 。否则，以秒为单位，返回 key
      *         的剩余生存时间。 发生异常 返回 0
      */
-    public Long ttl(String key,int indexdb) {
+    public  Long ttl(String key,int indexdb) {
         Jedis jedis = null;
         try {
             jedis = jedisPool.getResource();
@@ -283,7 +284,7 @@ public class RedisUtils {
      * @param key
      * @return 当生存时间移除成功时，返回 1 .如果 key 不存在或 key 没有设置生存时间，返回 0 ， 发生异常 返回 -1
      */
-    public Long persist(String key) {
+    public  Long persist(String key) {
         Jedis jedis = null;
         try {
             jedis = jedisPool.getResource();
@@ -305,7 +306,7 @@ public class RedisUtils {
      * @param value
      * @return 设置成功时返回 OK 。当 seconds 参数不合法时，返回一个错误。
      */
-    public String setex(String key, int seconds, String value) {
+    public  String setex(String key, int seconds, String value) {
         Jedis jedis = null;
         try {
             jedis = jedisPool.getResource();
@@ -325,7 +326,7 @@ public class RedisUtils {
      * @param value
      * @return 成功返回1 如果存在 和 发生异常 返回 0
      */
-    public Long setnx(String key, String value) {
+    public  Long setnx(String key, String value) {
         Jedis jedis = null;
         try {
             jedis = jedisPool.getResource();
@@ -346,7 +347,7 @@ public class RedisUtils {
      * @param value
      * @return 返回给定 key 的旧值。当 key 没有旧值时，也即是， key 不存在时，返回 nil
      */
-    public String getSet(String key, String value) {
+    public  String getSet(String key, String value) {
         Jedis jedis = null;
         try {
             jedis = jedisPool.getResource();
@@ -368,7 +369,7 @@ public class RedisUtils {
      *            单位:秒
      * @return 成功返回OK 失败和异常返回null
      */
-    public String setex(String key, String value, int seconds) {
+    public  String setex(String key, String value, int seconds) {
         Jedis jedis = null;
         String res = null;
         try {
@@ -398,7 +399,7 @@ public class RedisUtils {
      *            下标位置
      * @return 返回替换后 value 的长度
      */
-    public Long setrange(String key, String str, int offset) {
+    public  Long setrange(String key, String str, int offset) {
         Jedis jedis = null;
         try {
             jedis = jedisPool.getResource();
@@ -421,7 +422,7 @@ public class RedisUtils {
      *            string数组 也可以是一个key
      * @return 成功返回value的集合, 失败返回null的集合 ,异常返回空
      */
-    public List<String> mget(String... keys) {
+    public  List<String> mget(String... keys) {
         Jedis jedis = null;
         List<String> values = null;
         try {
@@ -451,7 +452,7 @@ public class RedisUtils {
      * @return 成功返回OK 失败 异常 返回 null
      *
      */
-    public String mset(String... keysvalues) {
+    public  String mset(String... keysvalues) {
         Jedis jedis = null;
         String res = null;
         try {
@@ -480,7 +481,7 @@ public class RedisUtils {
      * @param keysvalues
      * @return 成功返回1 失败返回0
      */
-    public Long msetnx(String... keysvalues) {
+    public  Long msetnx(String... keysvalues) {
         Jedis jedis = null;
         Long res = 0L;
         try {
@@ -504,7 +505,7 @@ public class RedisUtils {
      * @param value
      * @return 旧值 如果key不存在 则返回null
      */
-    public String getset(String key, String value) {
+    public  String getset(String key, String value) {
         Jedis jedis = null;
         String res = null;
         try {
@@ -530,7 +531,7 @@ public class RedisUtils {
      * @param endOffset
      * @return 如果没有返回null
      */
-    public String getrange(String key, int startOffset, int endOffset) {
+    public  String getrange(String key, int startOffset, int endOffset) {
         Jedis jedis = null;
         String res = null;
         try {
@@ -553,7 +554,7 @@ public class RedisUtils {
      * @param key
      * @return 加值后的结果
      */
-    public Long incr(String key) {
+    public  Long incr(String key) {
         Jedis jedis = null;
         Long res = null;
         try {
@@ -577,7 +578,7 @@ public class RedisUtils {
      * @param integer
      * @return
      */
-    public Long incrBy(String key, Long integer) {
+    public  Long incrBy(String key, Long integer) {
         Jedis jedis = null;
         Long res = null;
         try {
@@ -600,7 +601,7 @@ public class RedisUtils {
      * @param key
      * @return
      */
-    public Long decr(String key) {
+    public  Long decr(String key) {
         Jedis jedis = null;
         Long res = null;
         try {
@@ -624,7 +625,7 @@ public class RedisUtils {
      * @param integer
      * @return
      */
-    public Long decrBy(String key, Long integer) {
+    public  Long decrBy(String key, Long integer) {
         Jedis jedis = null;
         Long res = null;
         try {
@@ -647,7 +648,7 @@ public class RedisUtils {
      * @param key
      * @return 失败返回null
      */
-    public Long serlen(String key) {
+    public  Long serlen(String key) {
         Jedis jedis = null;
         Long res = null;
         try {
@@ -674,7 +675,7 @@ public class RedisUtils {
      * @param value
      * @return 如果存在返回0 异常返回null
      */
-    public Long hset(String key, String field, String value) {
+    public  Long hset(String key, String field, String value) {
         Jedis jedis = null;
         Long res = null;
         try {
@@ -699,7 +700,7 @@ public class RedisUtils {
      * @param value
      * @return
      */
-    public Long hsetnx(String key, String field, String value) {
+    public  Long hsetnx(String key, String field, String value) {
         Jedis jedis = null;
         Long res = null;
         try {
@@ -723,7 +724,7 @@ public class RedisUtils {
      * @param hash
      * @return 返回OK 异常返回null
      */
-    public String hmset(String key, Map<String, String> hash, int indexdb) {
+    public  String hmset(String key, Map<String, String> hash, int indexdb) {
         Jedis jedis = null;
         String res = null;
         try {
@@ -748,7 +749,7 @@ public class RedisUtils {
      * @param field
      * @return 没有返回null
      */
-    public String hget(String key, String field) {
+    public  String hget(String key, String field) {
         Jedis jedis = null;
         String res = null;
         try {
@@ -773,7 +774,7 @@ public class RedisUtils {
      *            可以使 一个String 也可以是 String数组
      * @return
      */
-    public List<String> hmget(String key, int indexdb, String... fields) {
+    public  List<String> hmget(String key, int indexdb, String... fields) {
         Jedis jedis = null;
         List<String> res = null;
         try {
@@ -800,7 +801,7 @@ public class RedisUtils {
      * @param value
      * @return
      */
-    public Long hincrby(String key, String field, Long value) {
+    public  Long hincrby(String key, String field, Long value) {
         Jedis jedis = null;
         Long res = null;
         try {
@@ -824,7 +825,7 @@ public class RedisUtils {
      * @param field
      * @return
      */
-    public Boolean hexists(String key, String field) {
+    public  Boolean hexists(String key, String field) {
         Jedis jedis = null;
         Boolean res = false;
         try {
@@ -847,7 +848,7 @@ public class RedisUtils {
      * @param key
      * @return
      */
-    public Long hlen(String key) {
+    public  Long hlen(String key) {
         Jedis jedis = null;
         Long res = null;
         try {
@@ -873,7 +874,7 @@ public class RedisUtils {
      *            可以是 一个 field 也可以是 一个数组
      * @return
      */
-    public Long hdel(String key, String... fields) {
+    public  Long hdel(String key, String... fields) {
         Jedis jedis = null;
         Long res = null;
         try {
@@ -896,7 +897,7 @@ public class RedisUtils {
      * @param key
      * @return
      */
-    public Set<String> hkeys(String key) {
+    public  Set<String> hkeys(String key) {
         Jedis jedis = null;
         Set<String> res = null;
         try {
@@ -919,7 +920,7 @@ public class RedisUtils {
      * @param key
      * @return
      */
-    public List<String> hvals(String key) {
+    public  List<String> hvals(String key) {
         Jedis jedis = null;
         List<String> res = null;
         try {
@@ -942,7 +943,7 @@ public class RedisUtils {
      * @param key
      * @return
      */
-    public Map<String, String> hgetall(String key, int indexdb) {
+    public  Map<String, String> hgetall(String key, int indexdb) {
         Jedis jedis = null;
         Map<String, String> res = null;
         try {
@@ -967,7 +968,7 @@ public class RedisUtils {
      *            可以使一个string 也可以使string数组
      * @return 返回list的value个数
      */
-    public Long lpush(int indexdb, String key, String... strs) {
+    public  Long lpush(int indexdb, String key, String... strs) {
         Jedis jedis = null;
         Long res = null;
         try {
@@ -993,7 +994,7 @@ public class RedisUtils {
      *            可以使一个string 也可以使string数组
      * @return 返回list的value个数
      */
-    public Long rpush(String key, String... strs) {
+    public  Long rpush(String key, String... strs) {
         Jedis jedis = null;
         Long res = null;
         try {
@@ -1022,7 +1023,7 @@ public class RedisUtils {
      *            添加的value
      * @return
      */
-    public Long linsert(String key, BinaryClient.LIST_POSITION where, String pivot,
+    public  Long linsert(String key, BinaryClient.LIST_POSITION where, String pivot,
                         String value) {
         Jedis jedis = null;
         Long res = null;
@@ -1052,7 +1053,7 @@ public class RedisUtils {
      * @param value
      * @return 成功返回OK
      */
-    public String lset(String key, Long index, String value) {
+    public  String lset(String key, Long index, String value) {
         Jedis jedis = null;
         String res = null;
         try {
@@ -1078,7 +1079,7 @@ public class RedisUtils {
      * @param value
      * @return 返回被删除的个数
      */
-    public Long lrem(String key, long count, String value) {
+    public  Long lrem(String key, long count, String value) {
         Jedis jedis = null;
         Long res = null;
         try {
@@ -1103,7 +1104,7 @@ public class RedisUtils {
      * @param end
      * @return 成功返回OK
      */
-    public String ltrim(String key, long start, long end) {
+    public  String ltrim(String key, long start, long end) {
         Jedis jedis = null;
         String res = null;
         try {
@@ -1177,7 +1178,7 @@ public class RedisUtils {
      * @param dstkey
      * @return
      */
-    public String rpoplpush(String srckey, String dstkey, int indexdb) {
+    public  String rpoplpush(String srckey, String dstkey, int indexdb) {
         Jedis jedis = null;
         String res = null;
         try {
@@ -1202,7 +1203,7 @@ public class RedisUtils {
      * @param index
      * @return 如果没有返回null
      */
-    public String lindex(String key, long index) {
+    public  String lindex(String key, long index) {
         Jedis jedis = null;
         String res = null;
         try {
@@ -1225,7 +1226,7 @@ public class RedisUtils {
      * @param key
      * @return
      */
-    public Long llen(String key) {
+    public  Long llen(String key) {
         Jedis jedis = null;
         Long res = null;
         try {
@@ -1253,7 +1254,7 @@ public class RedisUtils {
      * @param end
      * @return
      */
-    public List<String> lrange(String key, long start, long end, int indexdb) {
+    public  List<String> lrange(String key, long start, long end, int indexdb) {
         Jedis jedis = null;
         List<String> res = null;
         try {
@@ -1279,7 +1280,7 @@ public class RedisUtils {
      * @param value
      * @return 操作成功返回 ok ，否则返回错误信息
      */
-    public String lset(String key, long index, String value) {
+    public  String lset(String key, long index, String value) {
         Jedis jedis = null;
         try {
             jedis = jedisPool.getResource();
@@ -1302,7 +1303,7 @@ public class RedisUtils {
      * @param sortingParameters
      * @return 返回列表形式的排序结果
      */
-    public List<String> sort(String key, SortingParams sortingParameters) {
+    public  List<String> sort(String key, SortingParams sortingParameters) {
         Jedis jedis = null;
         try {
             jedis = jedisPool.getResource();
@@ -1324,7 +1325,7 @@ public class RedisUtils {
      * @param key
      * @return 返回列表形式的排序结果
      */
-    public List<String> sort(String key) {
+    public  List<String> sort(String key) {
         Jedis jedis = null;
         try {
             jedis = jedisPool.getResource();
@@ -1348,7 +1349,7 @@ public class RedisUtils {
      *            可以是一个String 也可以是一个String数组
      * @return 添加成功的个数
      */
-    public Long sadd(String key, String... members) {
+    public  Long sadd(String key, String... members) {
         Jedis jedis = null;
         Long res = null;
         try {
@@ -1373,7 +1374,7 @@ public class RedisUtils {
      *            可以是一个String 也可以是一个String数组
      * @return 删除的个数
      */
-    public Long srem(String key, String... members) {
+    public  Long srem(String key, String... members) {
         Jedis jedis = null;
         Long res = null;
         try {
@@ -1396,7 +1397,7 @@ public class RedisUtils {
      * @param key
      * @return
      */
-    public String spop(String key) {
+    public  String spop(String key) {
         Jedis jedis = null;
         String res = null;
         try {
@@ -1423,7 +1424,7 @@ public class RedisUtils {
      *            可以使一个string 则返回set中所有的value 也可以是string数组
      * @return
      */
-    public Set<String> sdiff(String... keys) {
+    public  Set<String> sdiff(String... keys) {
         Jedis jedis = null;
         Set<String> res = null;
         try {
@@ -1452,7 +1453,7 @@ public class RedisUtils {
      *            可以使一个string 则返回set中所有的value 也可以是string数组
      * @return
      */
-    public Long sdiffstore(String dstkey, String... keys) {
+    public   Long sdiffstore(String dstkey, String... keys) {
         Jedis jedis = null;
         Long res = null;
         try {
@@ -1476,7 +1477,7 @@ public class RedisUtils {
      *            可以使一个string 也可以是一个string数组
      * @return
      */
-    public Set<String> sinter(String... keys) {
+    public  Set<String> sinter(String... keys) {
         Jedis jedis = null;
         Set<String> res = null;
         try {
@@ -1501,7 +1502,7 @@ public class RedisUtils {
      *            可以使一个string 也可以是一个string数组
      * @return
      */
-    public Long sinterstore(String dstkey, String... keys) {
+    public  Long sinterstore(String dstkey, String... keys) {
         Jedis jedis = null;
         Long res = null;
         try {
@@ -1525,7 +1526,7 @@ public class RedisUtils {
      *            可以使一个string 也可以是一个string数组
      * @return
      */
-    public Set<String> sunion(String... keys) {
+    public  Set<String> sunion(String... keys) {
         Jedis jedis = null;
         Set<String> res = null;
         try {
@@ -1550,7 +1551,7 @@ public class RedisUtils {
      *            可以使一个string 也可以是一个string数组
      * @return
      */
-    public Long sunionstore(String dstkey, String... keys) {
+    public  Long sunionstore(String dstkey, String... keys) {
         Jedis jedis = null;
         Long res = null;
         try {
@@ -1578,7 +1579,7 @@ public class RedisUtils {
      *            set中的value
      * @return
      */
-    public Long smove(String srckey, String dstkey, String member) {
+    public  Long smove(String srckey, String dstkey, String member) {
         Jedis jedis = null;
         Long res = null;
         try {
@@ -1601,7 +1602,7 @@ public class RedisUtils {
      * @param key
      * @return
      */
-    public Long scard(String key) {
+    public  Long scard(String key) {
         Jedis jedis = null;
         Long res = null;
         try {
