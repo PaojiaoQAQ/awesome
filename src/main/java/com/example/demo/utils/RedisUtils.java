@@ -4,12 +4,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import redis.clients.jedis.BinaryClient;
-import redis.clients.jedis.Jedis;
-import redis.clients.jedis.JedisPool;
-import redis.clients.jedis.SortingParams;
+import redis.clients.jedis.*;
 
-import javax.annotation.Resource;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.ObjectInputStream;
@@ -22,9 +18,8 @@ import java.util.Set;
 @Component
 public class RedisUtils {
     private static Logger log = LoggerFactory.getLogger(RedisUtils.class);
-    @Resource(name = "redisPoolFactory")
-    private   JedisPool jedisPool;
-
+    @Autowired
+    private  JedisPool jedisPool;
     /**
      * 通过key获取储存在redis中的value
      * 并释放连接

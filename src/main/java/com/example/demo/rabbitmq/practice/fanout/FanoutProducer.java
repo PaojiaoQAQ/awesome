@@ -10,10 +10,10 @@ import java.util.concurrent.TimeoutException;
 public class FanoutProducer {
     public static void main(String[] args) throws IOException, TimeoutException {
         ConnectionFactory connectionFactory = new ConnectionFactory();
-        connectionFactory.setHost("47.102.159.64");
+        connectionFactory.setHost("121.36.216.197");
         connectionFactory.setPort(5672);
-        connectionFactory.setUsername("guest");
-        connectionFactory.setPassword("guest");
+        connectionFactory.setUsername("admin");
+        connectionFactory.setPassword("123456");
         connectionFactory.setVirtualHost("/");
         Connection connection = connectionFactory.newConnection();
         String exchangeName = "fanout_exchange";

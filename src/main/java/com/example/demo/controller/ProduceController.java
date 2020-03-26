@@ -2,12 +2,10 @@ package com.example.demo.controller;
 
 import com.alibaba.fastjson.JSON;
 import com.example.demo.model.User;
-import com.example.demo.rabbitmq.Producer;
 import com.example.demo.service.DailyService;
 import com.example.demo.service.UserService;
 import com.example.demo.utils.RedisUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -23,7 +21,9 @@ public class ProduceController {
     @Autowired
     private DailyService dailyService;
     @Autowired
-    private Producer producer;
+    private RedisUtils redisUtils;
+//    @Autowired
+//    private Producer producer;
 
     @GetMapping(value = "/hello/{name}")
     public String helloTest(@PathVariable("name") String name){
@@ -44,7 +44,6 @@ public class ProduceController {
         user.setUserid("111111");
         String key = "user1";
         String value = JSON.toJSONString(user);
-        RedisUtils redisUtils = new RedisUtils();
         String flag = redisUtils.set(key, value,0);
         return redisUtils.get(key,0);
 
@@ -68,7 +67,7 @@ public class ProduceController {
 
     @RequestMapping(value = "mqtest")
     public void mqTest(){
-        producer.send();
+//        producer.send();
     }
 
 }
