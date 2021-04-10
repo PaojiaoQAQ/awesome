@@ -1,12 +1,17 @@
 package com.example.demo;
 
+import com.alibaba.fastjson.JSON;
+import com.example.demo.practice.dto.EmployeeDTO;
+import com.example.demo.practice.pojo.Employee;
 import com.example.demo.utils.ReadFileUtils;
 import com.example.demo.utils.ResourceUtil;
 import com.example.demo.utils.ThreadPoolUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.junit.Test;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.UUID;
 
 public class dailyTest {
     @Test
@@ -44,6 +49,19 @@ public class dailyTest {
         for(int i = 0; i< 200; i++){
             thread.excute(new Worker());
         }
+    }
+    @Test
+    public void saveEmployee(){
+        EmployeeDTO employeeDTO = new EmployeeDTO();
+        Employee employee = Employee.builder()
+                .Id(UUID.randomUUID().toString())
+                .name("谈越")
+                .code("000001")
+                .password("ty123456")
+                .deptId("000001")
+                .build();
+        employeeDTO.setEmployee(employee);
+        System.out.println(JSON.toJSONString(employeeDTO));
     }
 }
  class Worker implements Runnable{
