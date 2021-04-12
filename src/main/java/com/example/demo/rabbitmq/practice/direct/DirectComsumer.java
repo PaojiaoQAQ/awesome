@@ -11,7 +11,7 @@ import java.util.concurrent.TimeoutException;
 public class DirectComsumer {
     public static void main(String[] args) throws IOException, TimeoutException, InterruptedException {
         ConnectionFactory connectionFactory = new ConnectionFactory();
-        connectionFactory.setHost("121.36.216.197");
+        connectionFactory.setHost("127.0.0.1");
         connectionFactory.setPort(5672);
         connectionFactory.setUsername("admin");
         connectionFactory.setPassword("123456");
