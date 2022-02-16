@@ -19,11 +19,9 @@ public class Result<T>
     @ApiModelProperty(value = "返回信息")
     private String resultMessage;
     @ApiModelProperty(value = "返回数据")
-    private Object data;
+    private T data;
 
-    private Result(){}
-
-    public static Result success(Object data){
+    public Result success(T data){
         Result result = new Result<>();
         result.setSuccess(Boolean.TRUE);
         result.setResultcCode(ResultCodeEnum.SUCCESS.getCode());
@@ -39,4 +37,13 @@ public class Result<T>
         result.setResultMessage(err.getDesc());
         return result;
     }
+
+    public Result success(){
+        Result result = new Result<>();
+        result.setSuccess(Boolean.TRUE);
+        result.setResultcCode(ResultCodeEnum.SUCCESS.getCode());
+        result.setResultMessage(ResultCodeEnum.SUCCESS.getDesc());
+        return result;
+    }
+
 }

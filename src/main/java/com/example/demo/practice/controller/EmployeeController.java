@@ -25,6 +25,6 @@ public class EmployeeController
     @PutMapping("/saveEmployee")
     public Result saveEmployee(@RequestBody EmployeeDTO employeeDTO){
         employeeService.saveEmployee(employeeDTO.getEmployee());
-        return Result.success(null);
+        return new Result().success();
     }
 }

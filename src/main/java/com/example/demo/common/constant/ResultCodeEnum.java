@@ -7,7 +7,7 @@ package com.example.demo.common.constant;
  **/
 public enum ResultCodeEnum
 {
-    SUCCESS(10001,"成功"),
+    SUCCESS(200,"成功"),
     FAIL_UNKNOW(99999,"未知错误");
 
     private Integer code;
