@@ -141,7 +141,7 @@ public class CvmClientBizImpl implements CvmClientBiz
         DocJobResponse docProcessJob = commonCosClient.createDocProcessJobs(request);
         log.info("文件预览创建任务响应对象,docProcessJob:{}", docProcessJob.toString());
         String code = Optional.ofNullable(docProcessJob).map(DocJobResponse::getJobsDetail).map(DocJobDetail::getCode).orElse(null);
-        return "Success".equals(code);
+        return DocPreviewConstant.SUCCESS_STATE.equals(code);
     }
 
     @Override
