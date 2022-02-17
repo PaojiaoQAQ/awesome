@@ -1,4 +1,4 @@
-package com.example.demo.common.practice.controller;
+package com.example.demo.cos.controller;
 
 import cn.hutool.core.date.DatePattern;
 import cn.hutool.core.date.LocalDateTimeUtil;
