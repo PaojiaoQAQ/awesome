@@ -44,9 +44,5 @@ public interface DocPreviewConstant
      * 腾讯任务执行成功返回状态
      */
     String SUCCESS_STATE = "Success";
-    /**
-     * 配置文件名
-     */
-    String CORE_CONFIG_FILE_NAME = "core.config.properties";
 
 }
