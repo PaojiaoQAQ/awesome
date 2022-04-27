@@ -149,6 +149,11 @@
             <artifactId>reactor-test</artifactId>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>org.redisson</groupId>
+            <artifactId>redisson</artifactId>
+            <version>3.5.0</version>
+        </dependency>
     </dependencies>
     <dependencyManagement>
         <dependencies>

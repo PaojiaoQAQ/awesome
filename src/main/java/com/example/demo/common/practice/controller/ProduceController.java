@@ -38,16 +38,17 @@ public class ProduceController {
 
     @GetMapping(value = "/saveRedisTest")
     public String savePojo(){
-        User user = new User();
-        user.setName("redis测试");
-        user.setPassword("3333");
-        user.setUserid("111111");
-        String key = "user1";
-        String value = JSON.toJSONString(user);
-        String flag = redisUtils.set(key, value,0);
-        return redisUtils.get(key,0);
+//        User user = new User();
+//        user.setName("redis测试");
+//        user.setPassword("3333");
+//        user.setUserid("111111");
+//        String key = "user1";
+//        String value = JSON.toJSONString(user);
+//        String flag = redisUtils.set(key, value,0);
+//        return redisUtils.get(key,0);
 
 //        redisTemplate.opsForValue().set("redisUser",user);
+        return null;
     }
 
     @GetMapping(value = "getRedisTest")
