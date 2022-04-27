@@ -1,5 +1,6 @@
 package com.example.demo.common.controller;
 
+import com.example.demo.common.annotation.IdempotenceRequired;
 import com.example.demo.common.entity.Result;
 import com.example.demo.common.pojo.RedisVO;
 import com.example.demo.redis.RedisUtil;
@@ -24,13 +25,16 @@ public class RedisController
     @Resource
     private RedisUtil redisUtil;
     @GetMapping("/get/{key}")
+    @IdempotenceRequired
     public Result<Object> getRedisValueByKey(@PathVariable String key){
         return new Result<>().success(redisUtil.get(key));
     }
 
     @PutMapping("/set")
+    @IdempotenceRequired
     public Result<Object> setRedis(@RequestBody RedisVO redisVO){
         redisUtil.set(redisVO.getKey(),redisVO.getValue(),redisVO.getExpireTime());
         return new Result<>().success();
     }
+
 }

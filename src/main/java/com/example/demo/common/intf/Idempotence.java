@@ -23,9 +23,9 @@ public interface Idempotence
     /**
      * 记录幂等号
      * @param idempotenceId 幂等号
-     * @param time 过期时间
+     * @param expireTime 过期时间
      */
-    void record(String idempotenceId, Integer time);
+    void record(String idempotenceId, Long expireTime);
 
     /**
      * 删除幂等号
