@@ -87,7 +87,7 @@ public class LimitInterceptor
         ImmutableList<String> keys = ImmutableList.of(StringUtils.join(keyAry, "-"));
         try {
             String luaScript = buildLuaScript();
-            RedisScript<Number> redisScript = new DefaultRedisScript<Number>(luaScript, Number.class);
+            RedisScript<Number> redisScript = new DefaultRedisScript<>(luaScript, Number.class);
             Number count = redisUtil.excute(redisScript, keys, limitCount, limitPeriod);
             if (count != null && count.intValue() <= limitCount) {
                 return pjp.proceed();
