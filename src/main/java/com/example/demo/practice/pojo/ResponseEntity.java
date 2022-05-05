@@ -1,4 +1,4 @@
-package com.example.demo.common.practice.pojo;
+package com.example.demo.practice.pojo;
 
 public class ResponseEntity {
     public String getStatus() {

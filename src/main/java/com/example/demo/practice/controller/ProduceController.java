@@ -1,9 +1,8 @@
-package com.example.demo.common.practice.controller;
+package com.example.demo.practice.controller;
 
-import com.alibaba.fastjson.JSON;
-import com.example.demo.common.practice.service.DailyService;
-import com.example.demo.common.practice.service.UserService;
-import com.example.demo.common.practice.pojo.User;
+import com.example.demo.practice.service.DailyService;
+import com.example.demo.practice.service.UserService;
+import com.example.demo.practice.pojo.User;
 import com.example.demo.common.utils.RedisUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

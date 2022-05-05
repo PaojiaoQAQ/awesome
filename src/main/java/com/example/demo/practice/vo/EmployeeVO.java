@@ -1,4 +1,4 @@
-package com.example.demo.common.practice.vo;
+package com.example.demo.practice.vo;
 
 import lombok.Data;
 

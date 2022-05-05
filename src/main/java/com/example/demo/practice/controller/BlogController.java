@@ -1,7 +1,7 @@
-package com.example.demo.common.practice.controller;
+package com.example.demo.practice.controller;
 
-import com.example.demo.common.practice.pojo.RequestEntity;
-import com.example.demo.common.practice.pojo.ResponseEntity;
+import com.example.demo.practice.pojo.RequestEntity;
+import com.example.demo.practice.pojo.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 

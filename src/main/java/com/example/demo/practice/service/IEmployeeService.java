@@ -1,6 +1,6 @@
-package com.example.demo.common.practice.service;
+package com.example.demo.practice.service;
 
-import com.example.demo.common.practice.pojo.Employee;
+import com.example.demo.practice.pojo.Employee;
 
 /**
  * @author tanyue

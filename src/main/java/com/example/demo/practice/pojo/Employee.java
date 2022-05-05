@@ -1,4 +1,4 @@
-package com.example.demo.common.practice.pojo;
+package com.example.demo.practice.pojo;
 
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;

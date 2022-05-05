@@ -1,8 +1,8 @@
-package com.example.demo.common.practice.service.impl;
+package com.example.demo.practice.service.impl;
 
-import com.example.demo.common.practice.mapper.EmployeeMapper;
-import com.example.demo.common.practice.pojo.Employee;
-import com.example.demo.common.practice.service.IEmployeeService;
+import com.example.demo.practice.mapper.EmployeeMapper;
+import com.example.demo.practice.pojo.Employee;
+import com.example.demo.practice.service.IEmployeeService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

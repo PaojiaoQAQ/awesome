@@ -1,4 +1,4 @@
-package com.example.demo.common.practice.service;
+package com.example.demo.practice.service;
 
 public interface DailyService {
     //根据城市代码获取天气信息

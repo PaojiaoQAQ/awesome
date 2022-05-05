@@ -1,6 +1,6 @@
-package com.example.demo.common.practice.service.impl;
+package com.example.demo.practice.service.impl;
 
-import com.example.demo.common.practice.service.DailyService;
+import com.example.demo.practice.service.DailyService;
 import com.example.demo.common.utils.HttpClientUtils;
 import com.example.demo.common.utils.ResourceUtil;
 import com.google.common.collect.Lists;

@@ -40,10 +40,18 @@ spring:
     password: 123456
     jedis:
       pool:
-        max-active: 1024
-        max-wait: 6000
-        max-idle: 200
-        min-idle: 10
+        ## 连接池最大连接数（使用负值表示没有限制）
+        #spring.redis.pool.max-active=8
+        max-active: 8
+        ## 连接池最大阻塞等待时间（使用负值表示没有限制）
+        #spring.redis.pool.max-wait=-1
+        max-wait: -1
+        ## 连接池中的最大空闲连接
+        #spring.redis.pool.max-idle=8
+        max-idle: 8
+        ## 连接池中的最小空闲连接
+        #spring.redis.pool.min-idle=0
+        min-idle: 0
     timeout: 10000
 spring.redis.block-when-exhausted: true
 #    lettuce:
@@ -57,7 +65,7 @@ spring.redis.block-when-exhausted: true
 #mybatis配置
 mybatis:
   mapper-locations: classpath:mapping/*.xml
-  type-aliases-package: com.example.demo.mapper
+  type-aliases-package: com.example.demo.common.entity
   configLocation: classpath:mybatis-config.xml
 
 #log4j配置
@@ -68,12 +76,12 @@ logging:
 cos:
   common:
     encrypt_access_key: 0
-    bucket: tanyue
-    access_id: 123
-    access_key: 123
+    bucket: tanyue-1307874331
+    access_id: AKID83i7F6gz2oJYWDeqlQkuoW8c0FF5i5C3
+    access_key: dz4sPgfOq2xbz2qNceQv96nDMDo9D0Xn
     region: ap-nanjing
-    end_point: https://tanyue.cos.ap-nanjing.myqcloud.com
-    preview_queue: 1111
+    end_point: https://tanyue-1307874331.cos.ap-nanjing.myqcloud.com
+    preview_queue: pd195a86a5b8b4e2a869334d474a36413
     rootPath: common
 
 download:

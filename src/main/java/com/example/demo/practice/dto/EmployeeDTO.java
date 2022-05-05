@@ -1,7 +1,7 @@
-package com.example.demo.common.practice.dto;
+package com.example.demo.practice.dto;
 
 import com.alibaba.fastjson.annotation.JSONField;
-import com.example.demo.common.practice.pojo.Employee;
+import com.example.demo.practice.pojo.Employee;
 
 /**
  * @description

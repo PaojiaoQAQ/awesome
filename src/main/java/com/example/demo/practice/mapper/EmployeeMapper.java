@@ -1,7 +1,7 @@
-package com.example.demo.common.practice.mapper;
+package com.example.demo.practice.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.example.demo.common.practice.pojo.Employee;
+import com.example.demo.practice.pojo.Employee;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Component;
 

@@ -1,4 +1,4 @@
-package com.example.demo.common.practice.pojo;
+package com.example.demo.practice.pojo;
 
 public class RequestEntity {
     private String username;
