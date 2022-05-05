@@ -1,6 +1,9 @@
 package com.example.demo.common.controller;
 
 import com.example.demo.common.annotation.IdempotenceRequired;
+import com.example.demo.common.annotation.Limit;
+import com.example.demo.common.annotation.LimitKey;
+import com.example.demo.common.constant.LimitType;
 import com.example.demo.common.entity.Result;
 import com.example.demo.common.pojo.RedisVO;
 import com.example.demo.redis.RedisUtil;
@@ -12,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
+import java.io.IOException;
 
 /**
  * @description
@@ -23,7 +27,7 @@ import javax.annotation.Resource;
 public class RedisController
 {
     @Resource
-    private RedisUtil redisUtil;
+    private RedisUtil<String,Object> redisUtil;
     @GetMapping("/get/{key}")
     @IdempotenceRequired
     public Result<Object> getRedisValueByKey(@PathVariable String key){
@@ -37,4 +41,10 @@ public class RedisController
         return new Result<>().success();
     }
 
+    @Limit(period = 10, count = 10,limitType = LimitType.IP)
+    @GetMapping("/testLimit")
+    public String testLimit(@LimitKey String token, String thirdId, String url) throws IOException
+    {
+        return "success";
+    }
 }

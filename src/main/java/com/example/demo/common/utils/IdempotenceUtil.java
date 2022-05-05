@@ -19,7 +19,7 @@ import java.util.UUID;
 public class IdempotenceUtil
 {
     @Resource
-    private RedisUtil redisUtil;
+    private RedisUtil<String,Object> redisUtil;
 
     /**
      * 生成幂等号

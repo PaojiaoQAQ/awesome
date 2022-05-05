@@ -16,7 +16,7 @@ import javax.annotation.Resource;
 public class RedisIdempotence implements Idempotence
 {
     @Resource
-    private RedisUtil redisUtil;
+    private RedisUtil<String,Object> redisUtil;
     @Override
     public boolean check(String idempotenceId)
     {
