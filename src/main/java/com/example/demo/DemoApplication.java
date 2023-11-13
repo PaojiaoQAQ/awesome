@@ -11,7 +11,7 @@ import org.springframework.context.annotation.ComponentScan;
 import java.util.Arrays;
 
 @SpringBootApplication
-@MapperScan("com.example.demo.mapper")
+@MapperScan("com.example.demo.*")
 @ComponentScan("com.example.demo.*")
 public class DemoApplication {
 

@@ -1,11 +1,11 @@
 server:
-  port: 8090
+  port: 6020
 
 spring:
   datasource:
     url: jdbc:mysql://127.0.0.1:3306/tanyue?characterEncoding=utf8&useSSL=true
     username: root
-    password: 123456
+    password: 12345
     driver-class-name: com.mysql.cj.jdbc.Driver
     type: com.zaxxer.hikari.HikariDataSource
     hikari:
@@ -22,7 +22,6 @@ spring:
     port: 5672
     username: admin
     password: 123456
-    publisher-confirms: true #消息发送到交换机确认机制，是否确认回调
     publisher-returns: true #消息发送到交换机确认机制，是否返回回调
     listener:
       simple:
@@ -37,14 +36,57 @@ spring:
     database: 0
     host: 127.0.0.1
     port: 6379
-    password: 123456
+    password: 12345
     jedis:
       pool:
-        max-active: 1024
-        max-wait: 6000
-        max-idle: 200
-        min-idle: 10
+        ## 连接池最大连接数（使用负值表示没有限制）
+        #spring.redis.pool.max-active=8
+        max-active: 8
+        ## 连接池最大阻塞等待时间（使用负值表示没有限制）
+        #spring.redis.pool.max-wait=-1
+        max-wait: -1
+        ## 连接池中的最大空闲连接
+        #spring.redis.pool.max-idle=8
+        max-idle: 8
+        ## 连接池中的最小空闲连接
+        #spring.redis.pool.min-idle=0
+        min-idle: 0
     timeout: 10000
+  kafka:
+    bootstrap-servers: 127.0.0.1:9092, 127.0.0.1:9093
+    producer:
+      batch-size: 16384 #批量大小
+      acks: -1 #应答级别:多少个分区副本备份完成时向生产者发送ack确认(可选0、1、all/-1)
+      retries: 3 #息发送重试次数
+      properties:
+        linger:
+          ms: 2000 #提交延迟
+    #        partitioner:
+    #          class:
+    consumer:
+      group-id: testGroup #默认的消费组ID
+      enable-auto-commit: true #是否自动提交offset
+      auto-commit-interval: 2000 #提交offset延时
+      # 当kafka中没有初始offset或offset超出范围时将自动重置offset
+      # earliest:重置为分区中最小的offset;
+      # latest:重置为分区中最新的offset(消费分区中新产生的数据);
+      # none:只要有一个分区不存在已提交的offset,就抛出异常;
+      auto-offset-reset: latest
+      max-poll-records: 500 #单次拉取消息的最大条数
+      key-deserializer:  org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      properties:
+        session:
+          timeout:
+            ms: 120000 # 消费会话超时时间（超过这个时间 consumer 没有发送心跳，就会触发 rebalance 操作）
+        request:
+          ms: 18000 # 消费请求的超时时间
+    listener:
+      type: batch
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+
 spring.redis.block-when-exhausted: true
 #    lettuce:
 #      pool:
@@ -57,9 +99,24 @@ spring.redis.block-when-exhausted: true
 #mybatis配置
 mybatis:
   mapper-locations: classpath:mapping/*.xml
-  type-aliases-package: com.example.demo.mapper
+  type-aliases-package: com.example.demo.common.entity
   configLocation: classpath:mybatis-config.xml
 
 #log4j配置
 logging:
   config: classpath:log4j2-spring.xml
+
+#腾讯云cos整合
+cos:
+  common:
+    encrypt_access_key: 0
+    bucket: 123
+    access_id: 123
+    access_key: 123
+    region: ap-nanjing
+    end_point: https://tanyue-1307874331.cos.ap-nanjing.myqcloud.com
+    preview_queue: pd195a86a5b8b4e2a869334d474a36413
+    rootPath: common
+
+download:
+  tempFilePath: /upload/temp
