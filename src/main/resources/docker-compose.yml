@@ -1,4 +1,4 @@
-version: "2"
+version: "3.1"
 
 services:
   zookeeper:
@@ -6,7 +6,7 @@ services:
     ports:
       - "2181:2181"
     volumes:
-      - "zookeeper_data:/bitnami"
+      - "./data/zookeeper_data:/bitnami"
     environment:
       - ALLOW_ANONYMOUS_LOGIN=yes
   kafka:
@@ -15,16 +15,58 @@ services:
       - "9092:9092"
       - "9093:9093"
     volumes:
-      - "kafka_data:/bitnami"
+      - "./data/kafka_data:/bitnami"
     environment:
       - KAFKA_CFG_ZOOKEEPER_CONNECT=zookeeper:2181
       - ALLOW_PLAINTEXT_LISTENER=yes
       - KAFKA_CFG_LISTENER_SECURITY_PROTOCOL_MAP=CLIENT:PLAINTEXT,EXTERNAL:PLAINTEXT
       - KAFKA_CFG_LISTENERS=CLIENT://:9092,EXTERNAL://0.0.0.0:9093
-      - KAFKA_CFG_ADVERTISED_LISTENERS=CLIENT://:9092,EXTERNAL://127.0.0.1:9093
+      - KAFKA_CFG_ADVERTISED_LISTENERS=CLIENT://:9092,EXTERNAL://0.0.0.0:9093
       - KAFKA_CFG_INTER_BROKER_LISTENER_NAME=CLIENT
     depends_on:
       - zookeeper
+  mysql_master:
+    image: mysql:5.7
+    restart: always
+    container_name: mysql_master
+    ports:
+      - 3306:3306
+    volumes:
+      - ./data/mysql_master/conf:/etc/mysql/conf.d
+      - ./data/mysql_master/logs:/logs
+      - ./data/mysql_master/data:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: 123456
+  mysql_slave:
+    image: mysql:5.7
+    restart: always
+    container_name: mysql_slave
+    ports:
+      - 3307:3306
+    volumes:
+      - ./data/mysql_slave/conf:/etc/mysql/conf.d
+      - ./data/mysql_slave/logs:/logs
+      - ./data/mysql_slave/data:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: 123456
+  my_redis:
+    image: redis:7-alpine
+    restart: always
+    container_name: my_redis
+    ports:
+      - 6379:6379
+    volumes:
+      - ./data/redis/redis.conf:/etc/redis/redis.conf  
+  my_rabbitmq:
+    image: rabbitmq:3.10-management
+    container_name: my_rabbitmq
+    ports:
+      - 15673:15672
+      - 5673:5672
+    restart: always
+    environment:
+      - RABBITMQ_DEFAULT_USER=tanyue
+      - RABBITMQ_DEFAULT_PASS=123456      
 
 volumes:
   zookeeper_data:

@@ -23,10 +23,6 @@ public class KafkaController
 {
     @Resource
     private KafkaTemplate<String, Object> kafkaTemplate;
-
-    public KafkaController() {
-    }
-
     @RequestMapping({"/producerSend/{topic}/{message}"})
     public Result<Object> sendKafkaMessage(@PathVariable("topic") String topic, @PathVariable("message") String message) {
         ProducerRecord<String, Object> record = new ProducerRecord(topic, "user", message);

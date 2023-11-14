@@ -1018,21 +1018,21 @@ public class RedisUtils {
      *            添加的value
      * @return
      */
-    public  Long linsert(String key, BinaryClient.LIST_POSITION where, String pivot,
-                        String value) {
-        Jedis jedis = null;
-        Long res = null;
-        try {
-            jedis = jedisPool.getResource();
-            res = jedis.linsert(key, where, pivot, value);
-        } catch (Exception e) {
-
-            log.error(e.getMessage());
-        } finally {
-            returnResource(jedisPool, jedis);
-        }
-        return res;
-    }
+//    public  Long linsert(String key, BinaryClient.LIST_POSITION where, String pivot,
+//                        String value) {
+//        Jedis jedis = null;
+//        Long res = null;
+//        try {
+//            jedis = jedisPool.getResource();
+//            res = jedis.linsert(key, where, pivot, value);
+//        } catch (Exception e) {
+//
+//            log.error(e.getMessage());
+//        } finally {
+//            returnResource(jedisPool, jedis);
+//        }
+//        return res;
+//    }
 
     /**
      * <p>
