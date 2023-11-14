@@ -30,11 +30,11 @@ services:
     restart: always
     container_name: mysql_master
     ports:
-      - 3306:3306
+      - "3306:3306"
     volumes:
-      - ./data/mysql_master/conf:/etc/mysql/conf.d
-      - ./data/mysql_master/logs:/logs
-      - ./data/mysql_master/data:/var/lib/mysql
+      - "./data/mysql_master/conf:/etc/mysql/conf.d"
+      - "./data/mysql_master/logs:/logs"
+      - "./data/mysql_master/data:/var/lib/mysql"
     environment:
       MYSQL_ROOT_PASSWORD: 123456
   mysql_slave:
@@ -42,11 +42,11 @@ services:
     restart: always
     container_name: mysql_slave
     ports:
-      - 3307:3306
+      - "3307:3306"
     volumes:
-      - ./data/mysql_slave/conf:/etc/mysql/conf.d
-      - ./data/mysql_slave/logs:/logs
-      - ./data/mysql_slave/data:/var/lib/mysql
+      - "./data/mysql_slave/conf:/etc/mysql/conf.d"
+      - "./data/mysql_slave/logs:/logs"
+      - "./data/mysql_slave/data:/var/lib/mysql"
     environment:
       MYSQL_ROOT_PASSWORD: 123456
   my_redis:
@@ -55,15 +55,15 @@ services:
     container_name: my_redis
     command: redis-server --requirepass 123456
     ports:
-      - 6379:6379
+      - "6379:6379"
     volumes:
-      - ./data/redis/redis.conf:/etc/redis/redis.conf  
+      - "./data/redis/redis.conf:/etc/redis/redis.conf"
   my_rabbitmq:
     image: rabbitmq:3.10-management
     container_name: my_rabbitmq
     ports:
-      - 15673:15672
-      - 5673:5672
+      - "15673:15672"
+      - "5673:5672"
     restart: always
     environment:
       - RABBITMQ_DEFAULT_USER=tanyue
