@@ -2,7 +2,6 @@ package com.example.demo.common.annotation;
 
 import com.example.demo.common.constant.LimitType;
 
-import javax.validation.constraints.Min;
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Inherited;
@@ -31,12 +30,10 @@ public @interface Limit
     /**
      * 一定时间内最多访问次数
      */
-    @Min(1)
     int count();
     /**
      * 给定的时间范围 单位(秒)
      */
-    @Min(1)
     int period();
     /**
      * 限流的类型(用户自定义key或者请求ip)

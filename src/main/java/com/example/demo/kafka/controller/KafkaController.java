@@ -1,7 +1,7 @@
 package com.example.demo.kafka.controller;
 
 import com.example.demo.common.entity.Result;
-import com.example.demo.utils.JacksonJsonUtils;
+import com.example.demo.common.utils.JacksonJsonUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.kafka.clients.producer.ProducerRecord;
 import org.springframework.kafka.core.KafkaTemplate;

@@ -73,8 +73,6 @@ public class RedisUtil<K,V>
         if(key!=null&&key.length>0){
             if(key.length==1){
                 redisTemplate.delete(key[0]);
-            }else{
-                redisTemplate.delete(CollectionUtils.arrayToList(key));
             }
         }
     }
