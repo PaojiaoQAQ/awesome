@@ -7,12 +7,14 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.EnableAspectJAutoProxy;
 
 import java.util.Arrays;
 
 @SpringBootApplication
 @MapperScan("com.example.demo.*")
 @ComponentScan("com.example.demo.*")
+@EnableAspectJAutoProxy(proxyTargetClass = true)
 public class DemoApplication {
 
     public static void main(String[] args) {

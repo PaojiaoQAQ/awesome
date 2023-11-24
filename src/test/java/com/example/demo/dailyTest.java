@@ -1,12 +1,11 @@
 package com.example.demo;
 
 import com.alibaba.fastjson.JSON;
-import com.example.demo.practice.dto.EmployeeDTO;
-import com.example.demo.practice.pojo.Employee;
-import com.example.demo.utils.ReadFileUtils;
-import com.example.demo.utils.ResourceUtil;
-import com.example.demo.utils.ThreadPoolUtils;
-import org.apache.commons.lang3.StringUtils;
+import com.example.demo.common.practice.dto.EmployeeDTO;
+import com.example.demo.common.practice.pojo.Employee;
+import com.example.demo.common.utils.ReadFileUtils;
+import com.example.demo.common.utils.ResourceUtil;
+import com.example.demo.common.utils.ThreadPoolUtils;
 import org.junit.Test;
 
 import java.text.SimpleDateFormat;
@@ -47,7 +46,9 @@ public class dailyTest {
     public void threadPoolTest(){
         ThreadPoolUtils thread  = ThreadPoolUtils.getInstance();
         for(int i = 0; i< 200; i++){
-            thread.excute(new Worker());
+            thread.excute(()->
+                System.out.println(Thread.currentThread().getName() + " is running")
+            );
         }
     }
     @Test
@@ -62,10 +63,5 @@ public class dailyTest {
                 .build();
         employeeDTO.setEmployee(employee);
         System.out.println(JSON.toJSONString(employeeDTO));
-    }
-}
- class Worker implements Runnable{
-    public void run() {
-        System.out.println(Thread.currentThread().getName() + " is running");
     }
 }
